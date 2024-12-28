@@ -1,11 +1,11 @@
 # Use a Node.js base image
 FROM node:18
 
-# Copy the .output folder into the container
-COPY ./web/4lua-v3 /app/4lua-v3
+# Copy project folder into the container
+COPY ./web/your_project /app/your_project
 
 # Set the working directory
-WORKDIR /app/4lua-v3
+WORKDIR /app/your_project
 
 # Install PM2 globally
 RUN npm install -g pm2
@@ -19,4 +19,4 @@ RUN npm run build
 EXPOSE 3001
 
 # Start the app using PM2 in cluster mode
-CMD ["pm2-runtime", "start", "/app/4lua-v3/ecosystem.config.cjs"]
+CMD ["pm2-runtime", "start", "/app/your_project/ecosystem.config.cjs"]
