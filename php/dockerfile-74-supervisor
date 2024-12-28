@@ -1,0 +1,48 @@
+FROM php:7.4-fpm
+
+# Cài đặt các tiện ích cơ bản và các extension cần thiết
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    libzip-dev \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    supervisor \
+    && docker-php-ext-install \
+    zip \
+    pdo \
+    pdo_mysql \
+    mbstring \
+    gd \
+    bcmath \
+    curl \
+    intl \
+    opcache \
+    && rm -rf /var/lib/apt/lists/*
+
+# Cài đặt Composer
+COPY --from=composer:2.8.3 /usr/bin/composer /usr/bin/composer
+
+# Create the directory for supervisor configuration
+RUN mkdir -p /etc/supervisor/conf.d
+
+# Copy the supervisor configuration file
+RUN ls -al
+COPY ./supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+COPY ./supervisor/php-fpm.conf /etc/supervisor/conf.d/php-fpm.conf
+
+# Thiết lập thư mục làm việc
+WORKDIR /var/www/html
+
+# Tùy chọn: Chỉnh sửa quyền trong container để phù hợp với Laravel
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 /var/www/html
+
+# Expose necessary ports (optional)
+EXPOSE 6001 9000
+
+# Start Supervisor by default
+CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]

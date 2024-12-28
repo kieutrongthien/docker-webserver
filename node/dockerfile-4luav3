@@ -1,0 +1,22 @@
+# Use a Node.js base image
+FROM node:18
+
+# Copy the .output folder into the container
+COPY ./web/4lua-v3 /app/4lua-v3
+
+# Set the working directory
+WORKDIR /app/4lua-v3
+
+# Install PM2 globally
+RUN npm install -g pm2
+
+# Install depends
+RUN echo y | npm install --silent
+RUN echo y | npx prisma generate
+RUN npm run build
+
+# Expose the desired port
+EXPOSE 3001
+
+# Start the app using PM2 in cluster mode
+CMD ["pm2-runtime", "start", "/app/4lua-v3/ecosystem.config.cjs"]

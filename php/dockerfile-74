@@ -1,0 +1,32 @@
+FROM php:7.4-fpm
+
+# Cài đặt các tiện ích cơ bản và các extension cần thiết
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    libzip-dev \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    && docker-php-ext-install \
+    zip \
+    pdo \
+    pdo_mysql \
+    mbstring \
+    gd \
+    bcmath \
+    curl \
+    intl \
+    opcache
+
+# Cài đặt Composer
+COPY --from=composer:2.8.3 /usr/bin/composer /usr/bin/composer
+
+# Thiết lập thư mục làm việc
+WORKDIR /var/www/html
+
+# Tùy chọn: Chỉnh sửa quyền trong container để phù hợp với Laravel
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 /var/www/html
