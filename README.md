@@ -1,4 +1,4 @@
-# Docker Local
+# Docker Webserver
 
 This is just my local docker compose file. You just need to clone your project into the **web** folder and create **nginx/conf/yourwebsite.local.comf**.
 
