@@ -1,3 +1,0 @@
-2024/12/28 21:20:15 [emerg] 1#1: no port in upstream "php81" in /etc/nginx/conf/4lua.net.conf:21
-2024/12/28 21:22:21 [emerg] 1#1: no "ssl_certificate" is defined for the "listen ... ssl" directive in /etc/nginx/nginx.conf:86
-2024/12/28 21:32:05 [error] 23#23: *3 open() "/var/www/html/favicon.ico" failed (2: No such file or directory), client: 172.18.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "https://localhost/"

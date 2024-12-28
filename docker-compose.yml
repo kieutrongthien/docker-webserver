@@ -22,8 +22,8 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: 061912685
-      MYSQL_DATABASE: bieberkieu
+      MYSQL_ROOT_PASSWORD: nopassword
+      MYSQL_DATABASE: dbname
     volumes:
       - ./mysql/data:/var/lib/mysql
       - ./mysql/config/my.cnf:/etc/my.cnf
