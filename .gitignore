@@ -3,3 +3,5 @@ mysql/data/*
 
 #DB Data
 db/*
+
+.DS_Store
