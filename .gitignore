@@ -1,0 +1,7 @@
+#Ignore mysql data
+mysql/data/*
+
+#DB Data
+db/*
+
+.DS_Store
